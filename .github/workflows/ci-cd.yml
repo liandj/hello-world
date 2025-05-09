@@ -29,7 +29,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}:{{ github.run_number }}
+          tags: ghcr.io/${{ github.repository }}:{{ github.run_id }}
 
       - name: Install sshpass
         run: |
@@ -48,12 +48,12 @@ jobs:
             echo $GITHUB_PAT | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
 
             # 拉取最新的镜像
-            sudo docker pull ghcr.io/${{ github.repository }}:{{ github.run_number }}
+            sudo docker pull ghcr.io/${{ github.repository }}:{{ github.run_id }}
 
             # 停止并移除旧的容器（如果存在）
             sudo docker stop my-nginx-container || true
             sudo docker rm my-nginx-container || true
 
             # 启动新的容器
-            sudo docker run -d -p 80:80 --name my-nginx-container ghcr.io/${{ github.repository }}:{{ github.run_number }}
+            sudo docker run -d -p 80:80 --name my-nginx-container ghcr.io/${{ github.repository }}:{{ github.run_id }}
           "
