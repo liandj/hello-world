@@ -1,5 +1,5 @@
 name: Context testing
-on: push
+on: 
   push:
     branches:
       - test # 监听master分支的推送
