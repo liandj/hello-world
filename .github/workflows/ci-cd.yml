@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main # 监听main分支的推送
+      - master # 监听main分支的推送
 
 jobs:
   build-and-deploy:
