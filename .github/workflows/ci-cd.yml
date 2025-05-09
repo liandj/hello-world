@@ -34,6 +34,7 @@ jobs:
       - name: Install sshpass
         run: |
           sudo apt-get update && sudo apt-get install -y sshpass
+          echo ${{ github.repository.deployments_url }}
 
       - name: Deploy to server
         env:
