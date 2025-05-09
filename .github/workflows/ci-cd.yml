@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master # 监听main分支的推送
+      - master # 监听master分支的推送
 
 jobs:
   build-and-deploy:
@@ -48,12 +48,12 @@ jobs:
             echo $GITHUB_PAT | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
 
             # 拉取最新的镜像
-            docker pull ghcr.io/${{ github.repository }}:latest
+            sudo docker pull ghcr.io/${{ github.repository }}:latest
 
             # 停止并移除旧的容器（如果存在）
-            docker stop my-nginx-container || true
-            docker rm my-nginx-container || true
+            sudo docker stop my-nginx-container || true
+            sudo docker rm my-nginx-container || true
 
             # 启动新的容器
-            docker run -d -p 80:80 --name my-nginx-container ghcr.io/${{ github.repository }}:latest
+            sudo docker run -d -p 80:80 --name my-nginx-container ghcr.io/${{ github.repository }}:latest
           "
