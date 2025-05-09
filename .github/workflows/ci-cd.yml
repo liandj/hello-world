@@ -3,10 +3,10 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master # 监听main分支的推送
+      - main # 监听main分支的推送
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +21,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.LIAN_PAT}}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
@@ -31,22 +31,21 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
 
+      - name: Install sshpass
+        run: |
+          sudo apt-get update && sudo apt-get install -y sshpass
+
       - name: Deploy to server
         env:
           SERVER_USER: ubuntu
           SERVER_IP: 43.160.206.35
           SERVER_PASSWD: ${{ secrets.UBUNTU_PASSWD }}
-
-      - name: Deploy to server
-        env:
-          SERVER_USER: ${{ secrets.SERVER_USER }}
-          SERVER_IP: ${{ secrets.SERVER_IP }}
-          SERVER_PASSWD: ${{ secrets.UBUNTU_PASSWD }}
+          GITHUB_PAT: ${{ secrets.LIAN_PAT }}
         run: |
           # 使用sshpass和密码登录到服务器并执行部署命令
           sshpass -p "$SERVER_PASSWD" ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} "
             # 登录到GitHub Container Registry
-            echo $LIAN_PAT | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+            echo $GITHUB_PAT | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
 
             # 拉取最新的镜像
             docker pull ghcr.io/${{ github.repository }}:latest
