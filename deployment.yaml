@@ -20,7 +20,7 @@ spec:
       imagePullSecrets:
       - name: harborsecret
       containers:
-      - image: reg.shukeyun.com:9088/{{PROJECT_NAMESPACE}}/{{PROJECT_NAME}}:{{IMAGE_TAG}}
+      - image: /my-app:21
         name: {{PROJECT_NAMESPACE}}-{{PROJECT_NAME}}
         imagePullPolicy: IfNotPresent
         resources:
