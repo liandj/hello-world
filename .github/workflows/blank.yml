@@ -16,7 +16,7 @@ jobs:
       # 2. 编译打包（示例为 Go 项目，其他语言需调整）
       - name: Build Application
         run: |
-          echo test
+          echo "test"
 
       # 3. 构建并推送 Docker 镜像
       - name: Set up Docker Buildx
@@ -53,8 +53,6 @@ jobs:
           git push
 
       # 6. 触发 ArgoCD 同步（通过 API）
-      - name: Trigger ArgoCD Sync
       - name: ArgoCD Action
         uses: clowdhaus/argo-cd-action@main
-        with:
-          command: echo edit deployment success
+        run: echo "edit deployment success"
