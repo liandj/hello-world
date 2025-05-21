@@ -41,7 +41,7 @@ jobs:
       - name: Update Image in Kubernetes Manifest
         run: |
           # 使用 sed 替换镜像名称（确保路径正确）
-          sed -i "s|image:.*|image: ${{ secrets.DOCKER_REGISTRY }}/my-app:${{ github.run_number }}|" ./deployment.yaml
+          sed -i "s|image:.*|image: ghcr.io/${{ github.repository }}:${{ github.run_number }}|" ./deployment.yaml
 
       # 5. 提交修改后的 deployment.yaml（可选：若配置仓库与代码仓库分离需调整）
       - name: Commit Manifest Changes
