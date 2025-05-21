@@ -20,7 +20,7 @@ spec:
       imagePullSecrets:
       - name: harborsecret
       containers:
-      - image: ghcr.io/liandj/hello-world:22
+      - image: ghcr.io/liandj/hello-world:23
         name: {{PROJECT_NAMESPACE}}-{{PROJECT_NAME}}
         imagePullPolicy: IfNotPresent
         resources:
