@@ -41,15 +41,15 @@ jobs:
       - name: Update Image in Kubernetes Manifest
         run: |
           # 使用 sed 替换镜像名称（确保路径正确）
-          sed -i "s|image:.*|image: ${{ secrets.DOCKER_REGISTRY }}/my-app:${{ github.run_number }}|" ./k8s/deployment.yaml
+          sed -i "s|image:.*|image: ${{ secrets.DOCKER_REGISTRY }}/my-app:${{ github.run_number }}|" ./deployment.yaml
 
       # 5. 提交修改后的 deployment.yaml（可选：若配置仓库与代码仓库分离需调整）
       - name: Commit Manifest Changes
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add ./k8s/deployment.yaml
-          git commit -m "Update image to ${{ github.sha }}"
+          git add ./deployment.yaml
+          git commit -m "Update image to ${{ github.run_number }}"
           git push
 
       # 6. 触发 ArgoCD 同步（通过 API）
