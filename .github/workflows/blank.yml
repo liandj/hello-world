@@ -3,6 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
+      - lian-test
       - master  # 触发分支
 
 jobs:
