@@ -55,7 +55,7 @@ jobs:
 
       # 6. 触发 ArgoCD 同步（通过 API）
       - name: Trigger ArgoCD Sync
-        uses: fjogeleit/argocd-action@v1
+        uses: clowdhaus/argo-cd-action@main
         with:
           command: app sync my-argo-app  # ArgoCD 应用名称
           url: ${{ secrets.ARGOCD_SERVER_URL }}
