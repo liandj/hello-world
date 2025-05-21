@@ -54,5 +54,4 @@ jobs:
 
       # 6. 触发 ArgoCD 同步（通过 API）
       - name: ArgoCD Action
-        uses: clowdhaus/argo-cd-action@main
         run: echo "edit deployment success"
