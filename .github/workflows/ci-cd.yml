@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master # 监听master分支的推送
+      - mac-test # 监听master分支的推送
 
 jobs:
   build-and-deploy:
@@ -33,7 +33,7 @@ jobs:
 
       - name: Install sshpass
         run: |
-          sudo apt-get update && sudo apt-get install -y sshpass
+          #sudo apt-get update && sudo apt-get install -y sshpass
           echo ${{ github.repository.deployments_url }}
 
       - name: Deploy to server
@@ -43,17 +43,7 @@ jobs:
           SERVER_PASSWD: ${{ secrets.UBUNTU_PASSWD }}
           GITHUB_PAT: ${{ secrets.LIAN_PAT }}
         run: |
-          # 使用sshpass和密码登录到服务器并执行部署命令
-          sshpass -p "$SERVER_PASSWD" ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} "
-            # 登录到GitHub Container Registry
-            echo $GITHUB_PAT | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
-
-            # 拉取最新的镜像
-            sudo docker pull ghcr.io/${{ github.repository }}:${{ github.run_number }}
-
-            # 停止并移除旧的容器（如果存在）
-            sudo docker stop my-nginx-container || true
-            sudo docker rm my-nginx-container || true
+          echo "hello world"
 
             # 启动新的容器
             sudo docker run -d -p 80:80 --name my-nginx-container ghcr.io/${{ github.repository }}:${{ github.run_number }}
