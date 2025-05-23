@@ -27,4 +27,5 @@ jobs:
           SERVER_PASSWD: ${{ secrets.UBUNTU_PASSWD }}
           GITHUB_PAT: ${{ secrets.LIAN_PAT }}
         run: |
-          echo "hello world"
+          whoim
+          ls -la /tmp/
