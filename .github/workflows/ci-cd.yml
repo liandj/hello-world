@@ -3,11 +3,11 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - kino-devops # 监听master分支的推送
+      - mac-test # 监听master分支的推送
 
 jobs:
   build-and-deploy:
-    runs-on: self-hosted
+    runs-on: kino-devops
 
     steps:
       - name: Checkout code
