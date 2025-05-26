@@ -19,8 +19,7 @@ jobs:
 
       - name: Deploy to server
         env:
-          SERVER_USER: ubuntu
-          SERVER_IP: 43.160.206.35
+          SERVER_USER: kino
           SERVER_PASSWD: ${{ secrets.UBUNTU_PASSWD }}
           GITHUB_PAT: ${{ secrets.LIAN_PAT }}
         run: |
