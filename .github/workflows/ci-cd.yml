@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - mac-test # 监听master分支的推送
+      - kino-devops # 监听master分支的推送
 
 jobs:
   build-and-deploy:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install sshpass
+      - name: Test Connect
         run: |
           echo ${{ github.repository }}
 
@@ -26,3 +26,4 @@ jobs:
         run: |
           who
           ls -la /tmp/
+          echo $SERVER_USER
