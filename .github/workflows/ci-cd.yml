@@ -15,7 +15,7 @@ jobs:
 
       - name: Test Connect
         run: |
-          ping -c 4 github.com
+          ping -c 10 github.com
           nc -vz github.com 443
 
       - name: Deploy to server
