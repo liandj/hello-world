@@ -1,0 +1,29 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - mac-test # 监听master分支的推送
+
+jobs:
+  build-and-deploy:
+    runs-on: macOS
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Test Connect
+        run: |
+          ping -c 10 github.com
+          nc -vz github.com 443
+
+      - name: Deploy to server
+        env:
+          SERVER_USER: kino
+          SERVER_PASSWD: ${{ secrets.UBUNTU_PASSWD }}
+          GITHUB_PAT: ${{ secrets.LIAN_PAT }}
+        run: |
+          who
+          ls -la /tmp/
+          echo $SERVER_USER
