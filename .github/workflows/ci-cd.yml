@@ -15,7 +15,8 @@ jobs:
 
       - name: Test Connect
         run: |
-          echo ${{ github.repository }}
+          ping -c 4 github.com
+          nc -vz github.com 443
 
       - name: Deploy to server
         env:
