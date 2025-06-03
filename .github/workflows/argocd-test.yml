@@ -38,6 +38,12 @@ jobs:
         run: |
           # 使用 sed 替换镜像名称（确保路径正确）
           sed -i "s|image:.*|image: ghcr.io/${{ github.repository }}:${{ github.run_number }}|" ./deploy/deployment.yaml
+          
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # 明确传递token
+          fetch-depth: 0
 
       # 5. 提交修改后的 deployment.yaml（可选：若配置仓库与代码仓库分离需调整）
       - name: Commit Manifest Changes
@@ -46,7 +52,7 @@ jobs:
           git config --global user.email "actions@github.com"
           git add ./deploy/deployment.yaml
           git commit -m "Update image to ${{ github.sha }}"
-          git push https://${{ github.actor }}:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git
+          git push 
 
       # 6. 触发 ArgoCD 同步（通过 API）
       - name: ArgoCD Action
