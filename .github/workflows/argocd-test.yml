@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: kino-devops
+    runs-on: macOS
     steps:
       # 1. 检出代码
       - name: Checkout Repository
