@@ -33,12 +33,7 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ github.run_number }}
 
-      # 4. 修改 deployment.yaml 中的镜像标签
-      - name: Update Image in Kubernetes Manifest
-        run: |
-          # 使用 sed 替换镜像名称（确保路径正确）
-          sed -i "s|image:.*|image: ghcr.io/${{ github.repository }}:${{ github.run_number }}|" ./deploy/deployment.yaml
-          grep image ./deploy/deployment.yaml 
+
           
       - name: Checkout code
         uses: actions/checkout@v4
@@ -46,12 +41,21 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}  # 明确传递token
           fetch-depth: 0
 
+      # 4. 修改 deployment.yaml 中的镜像标签
+      - name: Update Image in Kubernetes Manifest
+        run: |
+          # 使用 sed 替换镜像名称（确保路径正确）
+          sed -i "s|image:.*|image: ghcr.io/${{ github.repository }}:${{ github.run_number }}|" ./deploy/deployment.yaml
+          grep image ./deploy/deployment.yaml 
+          
       # 5. 提交修改后的 deployment.yaml（可选：若配置仓库与代码仓库分离需调整）
       - name: Commit Manifest Changes
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           grep image ./deploy/deployment.yaml 
+          sed -i "s|image:.*|image: ghcr.io/${{ github.repository }}:${{ github.run_number }}|" ./deploy/deployment.yaml
+          grep image ./deploy/deployment.yaml   
           git add ./deploy/deployment.yaml
           git commit -m "Update image to ${{ github.sha }}"
           git push 
