@@ -38,6 +38,7 @@ jobs:
         run: |
           # 使用 sed 替换镜像名称（确保路径正确）
           sed -i "s|image:.*|image: ghcr.io/${{ github.repository }}:${{ github.run_number }}|" ./deploy/deployment.yaml
+          grep image ./deploy/deployment.yaml 
           
       - name: Checkout code
         uses: actions/checkout@v4
