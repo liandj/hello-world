@@ -19,8 +19,8 @@ jobs:
         env:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-        run: echo "$password" | docker login ghcr.io -u $username --password-stdin          
+          password: Lian@5957
+        run: echo ${password} | docker login ghcr.io -u ${username} --password-stdin          
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
