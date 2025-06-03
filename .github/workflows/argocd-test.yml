@@ -21,7 +21,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-       env:
+        env:
           DOCKER_CLI_EXPERIMENTAL: enabled 
 
       - name: Build and push Docker image
