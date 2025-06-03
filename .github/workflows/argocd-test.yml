@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # 触发分支
+      - argocd-test  # 触发分支
 
 jobs:
   build-and-deploy:
