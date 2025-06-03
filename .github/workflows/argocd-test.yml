@@ -32,22 +32,12 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ github.run_number }}
-
-
-          
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: argocd-test  # 明确指定目标分支
-          token: ${{ secrets.GITHUB_TOKEN }}  # 明确传递token
-          persist-credentials: true  # 保持认证信息
-          fetch-depth: 0  # 获取完整历史
           
       # 5. 提交修改后的 deployment.yaml（可选：若配置仓库与代码仓库分离需调整）
       - name: Commit Manifest Changes
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "liandj94@sina.com"
           sed -i "s|image:.*|image: ghcr.io/${{ github.repository }}:${{ github.run_number }}|" ./deploy/deployment.yaml
           git add ./deploy/deployment.yaml
           git commit -m "Update image to ${{ github.sha }}"
