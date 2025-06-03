@@ -38,9 +38,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          ref: argocd-test  # 明确指定目标分支
           token: ${{ secrets.GITHUB_TOKEN }}  # 明确传递token
-          fetch-depth: 0
-
+          persist-credentials: true  # 保持认证信息
+          fetch-depth: 0  # 获取完整历史
           
       # 5. 提交修改后的 deployment.yaml（可选：若配置仓库与代码仓库分离需调整）
       - name: Commit Manifest Changes
