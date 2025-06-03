@@ -1,35 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: {{NAMESPACE}}
+  name: nginx-deployment
   labels:
-    app: {{PROJECT_NAMESPACE}}-{{PROJECT_NAME}}
-  name: {{PROJECT_NAMESPACE}}-{{PROJECT_NAME}}
+    app: nginx
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: {{PROJECT_NAMESPACE}}-{{PROJECT_NAME}}
-  strategy: {}
+      app: nginx
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        app: {{PROJECT_NAMESPACE}}-{{PROJECT_NAME}}
+        app: nginx
     spec:
-      imagePullSecrets:
-      - name: harborsecret
       containers:
-      - image: ghcr.io/liandj/hello-world:22
-        name: {{PROJECT_NAMESPACE}}-{{PROJECT_NAME}}
-        imagePullPolicy: IfNotPresent
-        resources:
-          limits:
-            cpu: 4096m
-            memory: 6Gi
-          requests:
-            cpu: 1024m
-            memory: 1Gi       
-        env: # 添加
-        - name: TZ                       # 添加
-          value: Asia/Shanghai
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
