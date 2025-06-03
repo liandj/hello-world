@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:latest
+        image: ghcr.io/liandj/hello-world:20
         ports:
         - containerPort: 80
