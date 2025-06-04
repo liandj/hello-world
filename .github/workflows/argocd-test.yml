@@ -43,7 +43,7 @@ jobs:
           sed -i "s|image:.*|image: ghcr.io/${{ github.repository }}:${{ github.run_number }}|" ./deploy/deployment.yaml
           git add ./deploy/deployment.yaml
           git commit -m "Update image to ${{ github.sha }}"
-          git remote set-url origin https://${{ github.actor }}:$PAT@${{ github.repository.clone_url }}
+          git remote set-url origin https://${{ github.actor }}:$PAT@github.com/${{ github.repository }}.git
           git push origin argocd-test
 
       # 6. 触发 ArgoCD 同步（通过 API）
