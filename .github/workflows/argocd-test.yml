@@ -42,6 +42,7 @@ jobs:
           git config --global user.email "actions@github.com"
           sed -i "s|image:.*|image: ghcr.io/${{ github.repository }}:${{ github.run_number }}|" ./deploy/deployment.yaml
           git add ./deploy/deployment.yaml
+          git commit -m "Update image to ${{ github.sha }}"
           git remote set-url origin git@github.com:${{ github.repository }}.git
           git push 
 
