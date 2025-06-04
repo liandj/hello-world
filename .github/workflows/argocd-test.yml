@@ -37,13 +37,10 @@ jobs:
           
       # 5. 提交修改后的 deployment.yaml（可选：若配置仓库与代码仓库分离需调整）
       - name: Commit Manifest Changes
-        env:
-          PAT: ${{ secrets.PAT_TOKEN }} 
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           sed -i "s|image:.*|image: ghcr.io/${{ github.repository }}:${{ github.run_number }}|" ./deploy/deployment.yaml
-          cat ./deploy/deployment.yaml
           git add ./deploy/deployment.yaml
           git remote set-url origin git@github.com:${{ github.repository }}.git
           git push origin argocd-test
