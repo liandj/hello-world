@@ -44,7 +44,7 @@ jobs:
           git add ./deploy/deployment.yaml
           git commit -m "Update image to ${{ github.sha }}"
           echo "https://${{ github.actor }}@github.com/${{ github.repository }}.git"
-          git remote set-url origin https://${{ github.actor }}:$PAT@github.com/${{ github.repository }}.git
+          git remote set-url origin https://liandj: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@github.com/liandj/hello-world.git
           git push origin argocd-test
 
       # 6. 触发 ArgoCD 同步（通过 API）
