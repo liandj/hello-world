@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: ghcr.io/liandj/hello-world:48
+        image: ghcr.io/liandj/hello-world:50
         ports:
         - containerPort: 80
